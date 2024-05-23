@@ -1,0 +1,16 @@
+﻿  labirints.cpp
+C:\Users\leoli\source\repos\labirints\structs.h(62,7): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "labirints.cpp")
+  
+C:\Users\leoli\source\repos\labirints\structs.h(62,14): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "labirints.cpp")
+  
+C:\Users\leoli\source\repos\labirints\labirints.cpp(33,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода
+  0 of 622 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  labirints.vcxproj -> C:\Users\leoli\source\repos\labirints\x64\Release\labirints.exe
+  "pwsh.exe" не является внутренней или внешней
+  командой, исполняемой программой или пакетным файлом.

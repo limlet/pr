@@ -1,0 +1,11 @@
+C:\Users\leoli\source\repos\labirints\x64\Release\labirints.vcxproj.CopyComplete
+C:\Users\leoli\source\repos\labirints\x64\Release\labirints.exe
+C:\Users\leoli\source\repos\labirints\x64\Release\sfml-graphics-2.dll
+C:\Users\leoli\source\repos\labirints\x64\Release\sfml-window-2.dll
+C:\Users\leoli\source\repos\labirints\x64\Release\sfml-system-2.dll
+C:\Users\leoli\source\repos\labirints\x64\Release\freetype.dll
+C:\Users\leoli\source\repos\labirints\x64\Release\zlib1.dll
+C:\Users\leoli\source\repos\labirints\x64\Release\bz2.dll
+C:\Users\leoli\source\repos\labirints\x64\Release\libpng16.dll
+C:\Users\leoli\source\repos\labirints\x64\Release\brotlidec.dll
+C:\Users\leoli\source\repos\labirints\x64\Release\brotlicommon.dll
