@@ -104,7 +104,7 @@ int printGameSfml(RenderWindow& window, Player& pl, vector<vector<LabyrinthElem>
 		}
 		printFlag(window, lab.size(), lab[0].size(), frameNowF, time);
 		printSfmlLab(lab, file, window, frameC, time);
-		pl.move(frameNow, time, lab, cnt);
+		pl.move(frameNow, time, lab);
 
 		window.draw(pl.spr);
 		window.display();
@@ -112,6 +112,55 @@ int printGameSfml(RenderWindow& window, Player& pl, vector<vector<LabyrinthElem>
 		if (pl.game == 0) window.close();
 	}
 	return cnt;
+}
+
+int printSkins(RenderWindow& window) {
+	int button = 0;
+
+	/*Image blackI, brownI, whiteI;
+	blackI.loadFromFile("images/blackCat.png");
+	brownI.loadFromFile("images/brownCat.png");
+	whiteI.loadFromFile("images/whiteCat.png");
+	Texture blackT, brownT, whiteT;
+	blackT.loadFromImage(blackI);
+	brownT.loadFromImage(brownI);
+	whiteT.loadFromImage(whiteI);
+	Sprite blackS(blackT), brownS(brownT), whiteS(whiteT), i(blackT);
+	blackS.setTextureRect(IntRect(15, 0, 14, 29));
+	brownS.setTextureRect(IntRect(15, 0, 14, 29));
+	whiteS.setTextureRect(IntRect(15, 0, 14, 29));
+	i.setTextureRect(IntRect(51, 2, 3, 3));
+	blackS.setPosition(200, 450);
+	brownS.setPosition(440, 450);
+	whiteS.setPosition(680, 450);
+	blackS.setScale(10, 10);
+	brownS.setScale(10, 10);
+	whiteS.setScale(10, 10);
+	i.setScale(20, 20);
+
+	bool a = 0;
+
+	if (IntRect(200, 450, 140, 290).contains(Mouse::getPosition(window))) {
+		i.setPosition(200, 450);
+		a = 1;
+		button = 1;
+	}
+	else if (IntRect(440, 450, 140, 290).contains(Mouse::getPosition(window))) {
+		i.setPosition(440, 450);
+		a = 1;
+		button = 2;
+	}
+	else if (IntRect(680, 450, 140, 290).contains(Mouse::getPosition(window))) {
+		i.setPosition(680, 450);
+		a = 1;
+		button = 3;
+	}
+	window.draw(blackS);
+	window.draw(brownS);
+	window.draw(whiteS);
+	if (a) window.draw(i);*/
+
+	return button;
 }
 
 pair<int, string> menu(int& cnt) {
@@ -160,8 +209,35 @@ pair<int, string> menu(int& cnt) {
 	backlight2.setScale(7, 7);
 	coins.setScale(7, 7);
 
+	Image blackI, brownI, whiteI;
+	blackI.loadFromFile("images/blackCat.png");
+	brownI.loadFromFile("images/brownCat.png");
+	whiteI.loadFromFile("images/whiteCat.png");
+	Texture blackT, brownT, whiteT;
+	blackT.loadFromImage(blackI);
+	brownT.loadFromImage(brownI);
+	whiteT.loadFromImage(whiteI);
+	Sprite blackS(blackT), brownS(brownT), whiteS(whiteT), i(blackT);
+	blackS.setTextureRect(IntRect(15, 0, 14, 29));
+	brownS.setTextureRect(IntRect(15, 0, 14, 29));
+	whiteS.setTextureRect(IntRect(15, 0, 14, 29));
+	i.setTextureRect(IntRect(51, 2, 3, 3));
+	blackS.setPosition(200, 450);
+	brownS.setPosition(440, 450);
+	whiteS.setPosition(680, 450);
+	blackS.setScale(10, 10);
+	brownS.setScale(10, 10);
+	whiteS.setScale(10, 10);
+	i.setScale(20, 20);
 
-	bool /*isMenu = 1, */isDif = 0;
+	Font font;
+	font.loadFromFile("images/font.ttf");
+	Text coinsCnt("", font, 63);
+	coinsCnt.setColor(Color::White);
+	//coinsCnt.setScale(1, 1.5);
+	coinsCnt.setPosition(720, 33);
+
+	bool /*isMenu = 1, */isDif = 0, isSk = 0;
 
 	pair<int, string> p{ 0, "whiteCat.png"};
 
@@ -170,10 +246,13 @@ pair<int, string> menu(int& cnt) {
 		while (window.pollEvent(e)) {
 			if (e.type == Event::Closed) {
 				window.close();
+				return{ -1, "" };
 			}
 		}
 		window.draw(background);
 		int button = 0;
+		bool a = 0;
+
 		if (isDif) {
 			if (IntRect(270, 260, 420, 100).contains(Mouse::getPosition(window))) {
 				backlight.setPosition(260, 250);
@@ -195,7 +274,7 @@ pair<int, string> menu(int& cnt) {
 				button = 4;
 			}
 
-			if (Mouse::isButtonPressed(Mouse::Left)) {
+			if (Mouse::isButtonPressed(Mouse::Left) && button) {
 				if (button == 1) {
 					p.first = 0;
 				}
@@ -205,13 +284,56 @@ pair<int, string> menu(int& cnt) {
 				else if (button == 3) {
 					p.first = 2;
 				}
-				else if (button == 4) isDif = 0;;
+				else if (button == 4) isDif = 0;
 			}
 
 			window.draw(ezBut);
 			window.draw(normalBut);
 			window.draw(hardBut);
 			window.draw(back);
+		}
+		else if (isSk) {
+			bool a = 0;
+
+			if (IntRect(200, 450, 140, 290).contains(Mouse::getPosition(window))) {
+				i.setPosition(200, 450);
+				a = 1;
+				button = 1;
+			}
+			else if (IntRect(440, 450, 140, 290).contains(Mouse::getPosition(window))) {
+				i.setPosition(440, 450);
+				a = 1;
+				button = 2;
+			}
+			else if (IntRect(680, 450, 140, 290).contains(Mouse::getPosition(window))) {
+				i.setPosition(680, 450);
+				a = 1;
+				button = 3;
+			}
+		    else if (IntRect(45, 45, 189, 70).contains(Mouse::getPosition(window))) {
+			    window.draw(backlight2);
+			    button = 4;
+		    }
+			window.draw(blackS);
+			window.draw(brownS);
+			window.draw(whiteS);
+			window.draw(back);
+			if (a) window.draw(i);
+
+			if (Mouse::isButtonPressed(Mouse::Left) && button) {
+				if (button == 1) {
+					p.second = "blackCat.png";
+				}
+				else if (button == 2) {
+					p.second = "brownCat.png";
+				}
+				else if (button == 3) {
+					p.second = "whiteCat.png";
+				}
+				else if (button == 4) {
+					isSk = 0;
+				}
+			}
 		}
 		else {
 			if (IntRect(270, 450, 420, 100).contains(Mouse::getPosition(window))) {
@@ -236,7 +358,7 @@ pair<int, string> menu(int& cnt) {
 					return p;
 				}
 				else if (button == 2) {
-
+					isSk = 1;
 				}
 				else if (button == 3){
 					isDif = 1;
@@ -249,6 +371,9 @@ pair<int, string> menu(int& cnt) {
 		}
 
 		window.draw(coins);
+		coinsCnt.setString(to_string(cnt));
+		window.draw(coinsCnt);
+
 		window.display();
 		window.clear();
 	}

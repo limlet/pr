@@ -3,12 +3,12 @@
 #include "print.h"
 #include "structs.h"
 #include "constants.h"
+#include "players.h"
 
 using namespace std;
 using namespace sf;
 
-int startGame(int difficult = 0, string skin = "whiteCat.png") {
-	Player pl(skin, 1, 20, 20);
+int startGame(int difficult, Player& pl) {
 	if (difficult == 0) {
 		RenderWindow window(VideoMode(labirintElSize * labWEasy, labirintElSize * labHEasy), "Labirints");
 		Labirint lab(labHEasy, labWEasy);
@@ -31,16 +31,27 @@ int startGame(int difficult = 0, string skin = "whiteCat.png") {
 
 int main() {
 	srand(time(0));
-	/*int dif = 0;
-	if (difficulty == "easy" || difficulty == "Easy") dif = 0;
-	else if (difficulty == "normal" || difficulty == "Normal") dif = 1;
-	else if (difficulty == "hard" || difficulty == "Hard") dif = 2;*/
-
 	int cnt = 0;
+
 	pair<int, string> settings = menu(cnt);
 
+	if (settings.first == -1) return 0;
+
+	Player pl(20, 20);
+	pl.cat(settings.second);
+
+	string name;
+	map<string, int> players = file();
+	//map<string, int> m1 = players;
+	signIn(players, pl, name);
+
 	while (1) {
-		cnt += startGame(settings.first, settings.second);
-		settings = menu(cnt);
+		if (settings.first == -1) break;
+		pl.cat(settings.second);
+		pl.game = 1;
+		pl.x = 20, pl.y = 20;
+		cnt += startGame(settings.first, pl);
+		settings = menu(pl.cntC);
 	}
+	file2(players, name, pl);
 }

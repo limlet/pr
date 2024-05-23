@@ -20,6 +20,7 @@ void Labirint::generateBinaryTree() {
 				walls[i][j].down = rand() % 2;
 				if (walls[i][j].down) walls[i][j].right = 0;
 			}
+			if (rand() % 100 < 35) walls[i][j].coin = 1;
 		}
 	}
 }
@@ -122,6 +123,12 @@ void Labirint::generateWilson() {
 	}
 }
 
+void Player::cat(string f) {
+	image.loadFromFile("images/" + f);
+	texture.loadFromImage(image);
+	spr.setTexture(texture);
+}
+
 void Player::update(float time) {
 	dx = 0; dy = 0;
 	switch (dir) {
@@ -136,7 +143,7 @@ void Player::update(float time) {
 	spr.setPosition(x, y);
 }
 
-void Player::move(float& frameNow, float time, vector<vector<LabyrinthElem>>& lab, int& cnt) {
+void Player::move(float& frameNow, float time, vector<vector<LabyrinthElem>>& lab) {
 	if ((Keyboard::isKeyPressed(Keyboard::A))) {
         dir = 1; speed = 0.1;
 		frameNow += time * 0.005;
@@ -169,7 +176,7 @@ void Player::move(float& frameNow, float time, vector<vector<LabyrinthElem>>& la
 		w = 14;
 		h = 27;
 	}
-	interactWithMap(lab, cnt);
+	interactWithMap(lab);
 	update(time);
 }
 
@@ -197,7 +204,7 @@ bool Player::coin(int i, int j) {
 	return 0;
 }
 
-void Player::interactWithMap(vector<vector<LabyrinthElem>>& lab, int& cnt) {
+void Player::interactWithMap(vector<vector<LabyrinthElem>>& lab) {
 	for (int i = y / labirintElSize; i < (y + h) / labirintElSize && i < lab.size(); i++) {
 		for (int j = x / labirintElSize; j < (x + h) / labirintElSize && j < lab[i].size(); j++) {
 			if (dy < 0 && lab[i][j].down && y + h > (i + 1) * labirintElSize) y = i * labirintElSize + labirintElSize;
@@ -209,7 +216,7 @@ void Player::interactWithMap(vector<vector<LabyrinthElem>>& lab, int& cnt) {
 
 			if (lab[i][j].coin && coin(i, j)) {
 				lab[i][j].coin = 0;
-				cnt++;
+				cntC++;	
 			}
 		}
 	}

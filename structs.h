@@ -48,32 +48,30 @@ public:
 
 class Player {
 private:
-	Image image;
-	Texture texture;
-	float x, y;
 	int w, h;
 public:
+	Image image;
+	Texture texture;
 	Sprite spr;
+	float x, y;
 	float dx = 0, dy = 0, speed = 0;
 	int dir = 0;
-	bool cat; //кот или собака
 	bool game = 1;
-	Player(string f, bool c, int X, int Y) {
-		image.loadFromFile("images/" + f);
-		texture.loadFromImage(image);
-		spr.setTexture(texture);
+	int cntC = 0;
+	Player(int X, int Y) {
 		x = X; y = Y;
-		cat = c;
 		spr.setTextureRect(IntRect(25, 30, -24, 22));
 		w = 24;
 		h = 22;
 	}
 
+	void cat(string f);
+
 	void update(float time);
 
-	void move(float& frameNow, float time, vector<vector<LabyrinthElem>>& lab, int& cnt);
+	void move(float& frameNow, float time, vector<vector<LabyrinthElem>>& lab);
 
-	void interactWithMap(vector<vector<LabyrinthElem>>& lab, int& cnt);
+	void interactWithMap(vector<vector<LabyrinthElem>>& lab);
 
 	bool flag(int height, int width);
 
